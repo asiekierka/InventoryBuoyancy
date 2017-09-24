@@ -36,6 +36,7 @@ import java.util.function.Predicate;
 		modid = "inventorybuoyancy",
 		name = "InventoryBuoyancy",
 		version = "${version}",
+		acceptedMinecraftVersions = "[1.12,1.13)",
 		dependencies = "after:betterwithmods"
 )
 public class InventoryBuoyancy {
