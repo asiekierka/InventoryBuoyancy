@@ -10,20 +10,47 @@
 
 package pl.asie.inventorybuoyancy;
 
-import betterwithmods.module.hardcore.world.HCBuoy;
-import betterwithmods.util.item.Stack;
+import com.google.common.collect.Sets;
+import gnu.trove.set.TIntSet;
+import gnu.trove.set.hash.TIntHashSet;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.oredict.OreDictionary;
 
-public class IBHandlerBWM extends IBHandler {
+import java.util.IdentityHashMap;
+import java.util.Set;
+
+public class IBHandlerCustom extends IBHandler {
+	private final Set<Item> itemSet = Sets.newSetFromMap(new IdentityHashMap<>());
+	private final TIntSet oreSet = new TIntHashSet();
+
+	public IBHandlerCustom(String[] data) {
+		for (String s : data) {
+			if (s.indexOf(':') >= 0) {
+				ResourceLocation loc = new ResourceLocation(s);
+				if (ForgeRegistries.ITEMS.containsKey(loc)) {
+					itemSet.add(ForgeRegistries.ITEMS.getValue(new ResourceLocation(s)));
+				}
+			} else {
+				oreSet.add(OreDictionary.getOreID(s));
+			}
+		}
+	}
+
 	@Override
 	public boolean isFloating(ItemStack stack) {
-		return HCBuoy.getBuoyancy(stack) > 0.5F;
-		/* Stack s = new Stack(stack);
-		if (HCBuoy.buoyancy.containsKey(s)) {
-			return HCBuoy.buoyancy.get(s) > 0.5F;
+		if (itemSet.contains(stack.getItem())) {
+			return true;
 		} else {
+			for (int i : OreDictionary.getOreIDs(stack)) {
+				if (oreSet.contains(i)) {
+					return true;
+				}
+			}
+
 			return false;
-			// return super.isFloating(stack);
-		} */
+		}
 	}
 }

@@ -21,13 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class IBHandler {
-	public static final Map<Item, Boolean> floatMap = new HashMap<>();
-
 	public boolean isFloating(ItemStack stack) {
-		if (floatMap.containsKey(stack.getItem())) {
-			return floatMap.get(stack.getItem());
-		}
-
 		Item item = stack.getItem();
 		if (item instanceof ItemBlock) {
 			Block block = ((ItemBlock) item).getBlock();
