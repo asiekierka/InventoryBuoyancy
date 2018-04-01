@@ -25,7 +25,7 @@ public class IBHandler {
 		Item item = stack.getItem();
 		if (item instanceof ItemBlock) {
 			Block block = ((ItemBlock) item).getBlock();
-			return (block.getMaterial(block.getDefaultState()) == Material.WOOD);
+			return (block.getDefaultState().getMaterial() == Material.WOOD);
 		} else {
 			for (int i : OreDictionary.getOreIDs(stack)) {
 				String n = OreDictionary.getOreName(i);

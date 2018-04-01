@@ -19,11 +19,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
 
+import java.util.Collections;
 import java.util.IdentityHashMap;
 import java.util.Set;
 
 public class IBHandlerCustom extends IBHandler {
-	private final Set<Item> itemSet = Sets.newSetFromMap(new IdentityHashMap<>());
+	private final Set<Item> itemSet = Collections.newSetFromMap(new IdentityHashMap<>());
 	private final TIntSet oreSet = new TIntHashSet();
 
 	public IBHandlerCustom(String[] data) {
